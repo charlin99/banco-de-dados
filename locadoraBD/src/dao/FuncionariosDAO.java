@@ -12,13 +12,13 @@ import java.util.ArrayList;
  *
  * @author Carlos
  */
-public class FuncionariosDAO {
+public class FuncionariosDAO extends DbConnection{
     private Connection conn;
-    private final String sqlInsert = "INSERT INTO mydb.Funcionario(CPF, Nome, Data_Contratação, Locadora_CNPJ) VALUES (?,?,?,?)";
-    private final String sqlUpdate = "UPDATE mydb.Funcionario SET Nome = ?, Data_Contratação = ?, Locadora_CNPJ = ?, WHERE CPF = ? ";
-    private final String sqlRemove = "DELETE FROM mydb.Funcionario WHERE CPF = ?";
-    private final String sqlList   = "SELECT CPF, Nome, Data_Contratação, Locadora_CNPJ FROM mydb.Funcionario ORDER BY Nome";
-    private final String sqlFind   = "SELECT CPF, Nome, Data_Contratação, Locadora_CNPJ FROM mydb.Funcionario WHERE CPF = ?";
+    private final String sqlInsert = "INSERT INTO mydb.Funcionário(CPF, Nome, Data_Contratação, Locadora_CNPJ) VALUES (?,?,?,?)";
+    private final String sqlUpdate = "UPDATE mydb.Funcionário SET Nome = ?, Data_Contratação = ?, Locadora_CNPJ = ?, WHERE CPF = ? ";
+    private final String sqlRemove = "DELETE FROM mydb.Funcionário WHERE CPF = ?";
+    private final String sqlList   = "SELECT CPF, Nome, Data_Contratação, Locadora_CNPJ FROM mydb.Funcionário ORDER BY Nome";
+    private final String sqlFind   = "SELECT CPF, Nome, Data_Contratação, Locadora_CNPJ FROM mydb.Funcionário WHERE CPF = ?";
     
     public void insert(Funcionario funcionario) throws SQLException{
         PreparedStatement ps = null;
@@ -55,12 +55,12 @@ public class FuncionariosDAO {
         }
     }
     
-    public void remove(int id) throws SQLException{
+    public void remove(String cpf) throws SQLException{
         PreparedStatement ps = null;
         try{
             conn = connect();
             ps = conn.prepareStatement(sqlRemove);
-            ps.setInt(1, id);
+            ps.setString(1, cpf);
             ps.execute();
         }
         finally{
@@ -122,13 +122,5 @@ public class FuncionariosDAO {
             close(conn);
         }
         
-    }
-
-    private Connection connect() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void close(Connection conn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

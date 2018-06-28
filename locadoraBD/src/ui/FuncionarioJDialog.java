@@ -3,7 +3,6 @@ package ui;
 import dao.FuncionariosDAO;
 import dao.LocadorasDAO;
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -283,7 +282,7 @@ public class FuncionarioJDialog extends javax.swing.JDialog {
         f.setData(txtData.getText());
         f.setLocadora(lDao.find((String) CBFuncionario.getSelectedItem()));
         FuncionariosDAO dao = new FuncionariosDAO();
-        dao.update(f);
+        dao.insert(f);
     }
     
     private void updateRecord() throws SQLException {
@@ -299,7 +298,7 @@ public class FuncionarioJDialog extends javax.swing.JDialog {
 
     private void deleteRecord() throws SQLException {
         FuncionariosDAO dao = new FuncionariosDAO();
-        dao.remove(Integer.parseInt(txtCPF.getText()));
+        dao.remove(txtCPF.getText());
     }
     
     private void loadRecords() throws SQLException {
