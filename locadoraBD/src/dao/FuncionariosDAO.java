@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class FuncionariosDAO extends DbConnection{
     private Connection conn;
     private final String sqlInsert = "INSERT INTO mydb.Funcionário(CPF, Nome, Data_Contratação, Locadora_CNPJ) VALUES (?,?,?,?)";
-    private final String sqlUpdate = "UPDATE mydb.Funcionário SET Nome = ?, Data_Contratação = ?, Locadora_CNPJ = ?, WHERE CPF = ? ";
+    private final String sqlUpdate = "UPDATE mydb.Funcionário SET Nome = ?, Data_Contratação = ?, Locadora_CNPJ = ? WHERE CPF = ? ";
     private final String sqlRemove = "DELETE FROM mydb.Funcionário WHERE CPF = ?";
     private final String sqlList   = "SELECT CPF, Nome, Data_Contratação, Locadora_CNPJ FROM mydb.Funcionário ORDER BY Nome";
     private final String sqlFind   = "SELECT CPF, Nome, Data_Contratação, Locadora_CNPJ FROM mydb.Funcionário WHERE CPF = ?";
@@ -43,10 +43,10 @@ public class FuncionariosDAO extends DbConnection{
         try{
             conn = connect();
             ps = conn.prepareStatement(sqlUpdate);
-            ps.setString(1, funcionario.getCPF());
-            ps.setString(2, funcionario.getNome());
-            ps.setString(3, funcionario.getData());
-            ps.setString(4, funcionario.getLocadora().getCNPJ());
+            ps.setString(1, funcionario.getNome());
+            ps.setString(2, funcionario.getData());
+            ps.setString(3, funcionario.getLocadora().getCNPJ());
+            ps.setString(4, funcionario.getCPF());
             ps.execute();
         }
         finally{

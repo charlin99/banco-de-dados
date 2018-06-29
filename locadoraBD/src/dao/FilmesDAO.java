@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class FilmesDAO extends DbConnection{
     private Connection conn;
     private final String sqlInsert = "INSERT INTO mydb.Filme(ID, Nome, Preço, Categoria) VALUES (?,?,?,?)";
-    private final String sqlUpdate = "UPDATE mydb.Filme SET Categoria = ?, Nome = ?, Preço = ?, WHERE ID = ? ";
+    private final String sqlUpdate = "UPDATE mydb.Filme SET Nome = ?, Preço = ?, Categoria = ? WHERE ID = ? ";
     private final String sqlRemove = "DELETE FROM mydb.Filme WHERE ID = ?";
     private final String sqlList   = "SELECT ID, Nome, Preço, Categoria FROM mydb.Filme ORDER BY Nome";
     private final String sqlFind   = "SELECT ID, Nome, Preço, Categoria FROM mydb.Filme WHERE ID = ?";
@@ -28,8 +28,8 @@ public class FilmesDAO extends DbConnection{
         
             ps.setInt(1, filme.getId());
             ps.setString(2, filme.getNome());
-            ps.setFloat(3, filme.getPreco());
-            ps.setString(4, filme.getCategoria().getSigla());
+            ps.setInt(3, filme.getPreco());
+            ps.setString(4, filme.getCategoria().getNomeCategoria());
             ps.execute();
         }
         finally{
@@ -43,10 +43,10 @@ public class FilmesDAO extends DbConnection{
         try{
             conn = connect();
             ps = conn.prepareStatement(sqlUpdate);
-            ps.setInt(1, filme.getId());
-            ps.setString(2, filme.getNome());
-            ps.setFloat(3, filme.getPreco());
-            ps.setString(4, filme.getCategoria().getSigla());
+            ps.setString(1, filme.getNome());
+            ps.setInt(2, filme.getPreco());
+            ps.setString(3, filme.getCategoria().getSigla());
+            ps.setInt(4, filme.getId());
             ps.execute();
         }
         finally{
@@ -83,7 +83,7 @@ public class FilmesDAO extends DbConnection{
                 filme = new Filme();
                 filme.setId(rs.getInt("ID"));
                 filme.setNome(rs.getString("Nome"));
-                filme.setPreco(rs.getFloat("Preço"));
+                filme.setPreco(rs.getInt("Preço"));
                 filme.setCategoria(categoriasDao.find(rs.getString("Categoria")));
                 list.add(filme);
             }
@@ -111,7 +111,7 @@ public class FilmesDAO extends DbConnection{
                 filme = new Filme();
                 filme.setId(rs.getInt("ID"));
                 filme.setNome(rs.getString("Nome"));
-                filme.setPreco(rs.getFloat("Preço"));
+                filme.setPreco(rs.getInt("Preço"));
                 filme.setCategoria(categoriasDao.find(rs.getString("Categoria")));
             }
             return filme;

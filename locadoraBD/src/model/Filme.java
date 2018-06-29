@@ -9,7 +9,7 @@ public class Filme {
     private int id;
     private Categoria categoria;
     private String nome;
-    private Float preco;
+    private int preco;
     
     public String getNome() {
         return nome;
@@ -27,11 +27,11 @@ public class Filme {
         this.id = id;
     }
 
-    public Float getPreco() {
+    public int getPreco() {
         return preco;
     }
 
-    public void setPreco(Float preco) {
+    public void setPreco(int preco) {
         this.preco = preco;
     }
 

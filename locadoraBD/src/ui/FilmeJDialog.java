@@ -272,7 +272,7 @@ public class FilmeJDialog extends javax.swing.JDialog {
         Filme f = new Filme();
         f.setId(Integer.parseInt(txtID.getText()));
         f.setNome(txtNome.getText());
-        f.setPreco(Float.parseFloat(txtPreço.getText()));
+        f.setPreco(Integer.parseInt(txtPreço.getText()));
         f.setCategoria(cDao.find((String) CBFilme.getSelectedItem()));
         FilmesDAO dao = new FilmesDAO();
         dao.insert(f);
@@ -283,7 +283,7 @@ public class FilmeJDialog extends javax.swing.JDialog {
         Filme f = new Filme();
         f.setId(Integer.parseInt(txtID.getText()));
         f.setNome(txtNome.getText());
-        f.setPreco(Float.parseFloat(txtPreço.getText()));
+        f.setPreco(Integer.parseInt(txtPreço.getText()));
         f.setCategoria(cDao.find((String) CBFilme.getSelectedItem()));
         FilmesDAO dao = new FilmesDAO();
         dao.update(f);
